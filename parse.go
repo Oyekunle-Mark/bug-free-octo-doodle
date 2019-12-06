@@ -53,7 +53,7 @@ func buildLink(n *html.Node) Link {
 
 func parseText(n *html.Node) string {
 	if n.Type == html.TextNode {
-		return strings.TrimSpace(n.Data)
+		return n.Data
 	}
 
 	if n.Type != html.ElementNode {
@@ -63,10 +63,10 @@ func parseText(n *html.Node) string {
 	var ret string
 
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
-		ret += parseText(c) + " "
+		ret += parseText(c)
 	}
 
-	return strings.TrimSpace(ret)
+	return strings.Join(strings.Fields(ret), " ")
 }
 
 func findLinkNodes(n *html.Node) []*html.Node {
