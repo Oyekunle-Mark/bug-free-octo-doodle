@@ -45,7 +45,25 @@ func buildLink(n *html.Node) Link {
 		}
 	}
 
-	ret.Text = "TODO: Parse text..."
+	ret.Text = parseText(n)
+
+	return ret
+}
+
+func parseText(n *html.Node) string {
+	if n.Type == html.TextNode {
+		return n.Data
+	}
+
+	if n.Type != html.ElementNode {
+		return ""
+	}
+
+	var ret string
+
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		ret += parseText(c) + " "
+	}
 
 	return ret
 }
