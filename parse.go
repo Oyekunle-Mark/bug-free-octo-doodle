@@ -2,6 +2,7 @@ package link
 
 import (
 	"io"
+	"strings"
 
 	"golang.org/x/net/html"
 )
@@ -52,7 +53,7 @@ func buildLink(n *html.Node) Link {
 
 func parseText(n *html.Node) string {
 	if n.Type == html.TextNode {
-		return n.Data
+		return strings.TrimSpace(n.Data)
 	}
 
 	if n.Type != html.ElementNode {
@@ -65,7 +66,7 @@ func parseText(n *html.Node) string {
 		ret += parseText(c) + " "
 	}
 
-	return ret
+	return strings.TrimSpace(ret)
 }
 
 func findLinkNodes(n *html.Node) []*html.Node {
