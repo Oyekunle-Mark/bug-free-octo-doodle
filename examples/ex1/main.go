@@ -29,5 +29,5 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Printf("%+v", links)
+	fmt.Printf("%+v\n", links)
 }
